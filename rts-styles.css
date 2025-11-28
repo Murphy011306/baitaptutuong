@@ -1,0 +1,346 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1a1a2e;
+    color: #eee;
+    overflow: hidden;
+}
+
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Header */
+.game-header {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #533483;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.header-left h1 {
+    font-size: 1.5em;
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.resources-bar {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.resource-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.resource-icon {
+    font-size: 1.2em;
+}
+
+.resource-label {
+    font-size: 0.9em;
+    opacity: 0.9;
+}
+
+.resource-value {
+    font-weight: bold;
+    color: #4ade80;
+    font-size: 1.1em;
+}
+
+/* Game Container */
+.game-container {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Sidebars */
+.sidebar {
+    width: 250px;
+    background: linear-gradient(180deg, #16213e 0%, #0f3460 100%);
+    padding: 15px;
+    overflow-y: auto;
+    border-right: 2px solid #533483;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.right-sidebar {
+    border-right: none;
+    border-left: 2px solid #533483;
+}
+
+.sidebar h3 {
+    color: #4ade80;
+    margin: 15px 0 10px 0;
+    font-size: 1.1em;
+    border-bottom: 2px solid #533483;
+    padding-bottom: 5px;
+}
+
+.sidebar h3:first-child {
+    margin-top: 0;
+}
+
+/* Buttons */
+.build-btn, .train-btn, .research-btn, .hero-btn {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #eee;
+}
+
+.build-btn:hover, .train-btn:hover, .research-btn:hover, .hero-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4ade80;
+    transform: translateX(5px);
+}
+
+.build-btn:disabled, .train-btn:disabled, .research-btn:disabled, .hero-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-icon {
+    font-size: 2em;
+    min-width: 40px;
+    text-align: center;
+}
+
+.btn-info {
+    flex: 1;
+}
+
+.btn-name {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.btn-cost {
+    font-size: 0.85em;
+    color: #a78bfa;
+}
+
+/* Game Main */
+.game-main {
+    flex: 1;
+    position: relative;
+    background: #0a0a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-canvas {
+    background: linear-gradient(135deg, #2d5016 0%, #1a3a0a 100%);
+    border: 2px solid #533483;
+    cursor: crosshair;
+}
+
+.game-info {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
+.info-panel {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid #533483;
+    font-size: 0.9em;
+    max-width: 300px;
+}
+
+/* Info Display */
+.info-display {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 15px;
+    min-height: 100px;
+    font-size: 0.9em;
+    line-height: 1.6;
+}
+
+.tech-display {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tech-item {
+    padding: 8px;
+    margin: 5px 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+    border-left: 3px solid #4ade80;
+}
+
+/* Footer */
+.game-footer {
+    background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
+    padding: 10px 20px;
+    border-top: 2px solid #533483;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.controls {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    color: #eee;
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #4ade80;
+}
+
+.game-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 0.9em;
+}
+
+.game-stats span {
+    color: #a78bfa;
+}
+
+/* Notification */
+.notification {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    border: 2px solid #4ade80;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 1000;
+    max-width: 300px;
+    animation: slideIn 0.3s ease;
+}
+
+.notification.show {
+    display: block;
+}
+
+.notification.error {
+    border-color: #ef4444;
+}
+
+.notification.success {
+    border-color: #4ade80;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Scrollbar */
+.sidebar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #533483;
+    border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #6b46c1;
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    #game-canvas {
+        width: 800px;
+        height: 600px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .game-container {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: 150px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        display: flex;
+        gap: 20px;
+    }
+    
+    .sidebar > div {
+        min-width: 200px;
+    }
+    
+    #game-canvas {
+        width: 100%;
+        height: 400px;
+    }
+}
+

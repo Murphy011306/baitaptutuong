@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papers, Please: Việt Nam</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1>📋 Papers, Please: Việt Nam</h1>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Ngày:</span>
+                    <span id="day-counter">1</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tiền:</span>
+                    <span id="money-counter">100</span>₫
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Điểm:</span>
+                    <span id="score-counter">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Tài nguyên:</span>
+                    <span id="resources-counter">50</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="game-main">
+            <!-- Màn hình chào mừng -->
+            <div id="welcome-screen" class="screen active">
+                <div class="welcome-content">
+                    <h2>Chào mừng đến với Papers, Please: Việt Nam</h2>
+                    <p>Bạn là cán bộ phụ trách xét duyệt tài liệu và quản lý căn cứ.</p>
+                    <p>Mỗi quyết định của bạn sẽ ảnh hưởng đến kết quả cuối cùng!</p>
+                    <button id="start-btn" class="btn btn-primary">Bắt đầu</button>
+                </div>
+            </div>
+
+            <!-- Màn hình xét duyệt tài liệu -->
+            <div id="document-screen" class="screen">
+                <div class="document-review">
+                    <h2>Xét duyệt tài liệu - Ngày <span id="current-day">1</span></h2>
+                    <div class="document-panel">
+                        <div class="document-info">
+                            <div class="info-row">
+                                <span class="label">Họ tên:</span>
+                                <span id="doc-name">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">CMND/CCCD:</span>
+                                <span id="doc-id">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Nghề nghiệp:</span>
+                                <span id="doc-job">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Lý do vào căn cứ:</span>
+                                <span id="doc-reason">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Giấy tờ:</span>
+                                <span id="doc-papers">-</span>
+                            </div>
+                            <div class="warning-signs" id="warning-signs"></div>
+                        </div>
+                        <div class="document-actions">
+                            <button id="approve-btn" class="btn btn-success">✅ Chấp nhận</button>
+                            <button id="reject-btn" class="btn btn-danger">❌ Từ chối</button>
+                            <button id="detain-btn" class="btn btn-warning">🚨 Bắt giữ</button>
+                        </div>
+                    </div>
+                    <div class="queue-info">
+                        <p>Còn lại: <span id="queue-count">0</span> người trong hàng</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Màn hình phân bổ tài nguyên -->
+            <div id="resource-screen" class="screen">
+                <div class="resource-allocation">
+                    <h2>Phân bổ tài nguyên</h2>
+                    <p>Tài nguyên hiện có: <strong id="available-resources">50</strong></p>
+                    <div class="resource-options">
+                        <div class="resource-option">
+                            <h3>🏥 Y tế</h3>
+                            <p>Chăm sóc sức khỏe cho nhân viên</p>
+                            <input type="range" id="health-resource" min="0" max="50" value="10">
+                            <span id="health-value">10</span>
+                        </div>
+                        <div class="resource-option">
+                            <h3>🛡️ An ninh</h3>
+                            <p>Tăng cường bảo vệ căn cứ</p>
+                            <input type="range" id="security-resource" min="0" max="50" value="10">
+                            <span id="security-value">10</span>
+                        </div>
+                        <div class="resource-option">
+                            <h3>🍞 Lương thực</h3>
+                            <p>Cung cấp thức ăn cho mọi người</p>
+                            <input type="range" id="food-resource" min="0" max="50" value="10">
+                            <span id="food-value">10</span>
+                        </div>
+                        <div class="resource-option">
+                            <h3>🔧 Cơ sở hạ tầng</h3>
+                            <p>Bảo trì và nâng cấp thiết bị</p>
+                            <input type="range" id="infra-resource" min="0" max="50" value="10">
+                            <span id="infra-value">10</span>
+                        </div>
+                    </div>
+                    <div class="resource-total">
+                        <p>Tổng đã phân bổ: <span id="total-allocated">40</span> / <span id="max-resources">50</span></p>
+                    </div>
+                    <button id="confirm-resources-btn" class="btn btn-primary">Xác nhận phân bổ</button>
+                </div>
+            </div>
+
+            <!-- Màn hình quyết định tình huống -->
+            <div id="decision-screen" class="screen">
+                <div class="decision-panel">
+                    <h2>Tình huống đặc biệt</h2>
+                    <div class="situation-text" id="situation-text"></div>
+                    <div class="decision-options" id="decision-options"></div>
+                </div>
+            </div>
+
+            <!-- Màn hình kết thúc -->
+            <div id="ending-screen" class="screen">
+                <div class="ending-content">
+                    <h2 id="ending-title">Kết thúc</h2>
+                    <div id="ending-description"></div>
+                    <div class="ending-stats">
+                        <h3>Thống kê cuối cùng:</h3>
+                        <ul id="ending-stats-list"></ul>
+                    </div>
+                    <button id="restart-btn" class="btn btn-primary">Chơi lại</button>
+                </div>
+            </div>
+        </main>
+
+        <div class="notification" id="notification"></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
+
