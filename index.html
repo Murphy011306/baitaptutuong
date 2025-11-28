@@ -3,149 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Papers, Please: Việt Nam</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Tổng Khởi Nghĩa - RTS Game</title>
+    <link rel="stylesheet" href="rts-styles.css">
 </head>
 <body>
-    <div class="game-container">
+    <div class="game-wrapper">
+        <!-- Header với tài nguyên -->
         <header class="game-header">
-            <h1>📋 Papers, Please: Việt Nam</h1>
-            <div class="stats-bar">
-                <div class="stat-item">
-                    <span class="stat-label">Ngày:</span>
-                    <span id="day-counter">1</span>
+            <div class="header-left">
+                <h1>🎖️ Tổng Khởi Nghĩa</h1>
+            </div>
+            <div class="resources-bar">
+                <div class="resource-item">
+                    <span class="resource-icon">🌾</span>
+                    <span class="resource-label">Lương thực:</span>
+                    <span id="food-resource" class="resource-value">200</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-label">Tiền:</span>
-                    <span id="money-counter">100</span>₫
+                <div class="resource-item">
+                    <span class="resource-icon">🪵</span>
+                    <span class="resource-label">Gỗ:</span>
+                    <span id="wood-resource" class="resource-value">200</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-label">Điểm:</span>
-                    <span id="score-counter">0</span>
+                <div class="resource-item">
+                    <span class="resource-icon">⚙️</span>
+                    <span class="resource-label">Sắt:</span>
+                    <span id="iron-resource" class="resource-value">100</span>
                 </div>
-                <div class="stat-item">
-                    <span class="stat-label">Tài nguyên:</span>
-                    <span id="resources-counter">50</span>
+                <div class="resource-item">
+                    <span class="resource-icon">👥</span>
+                    <span class="resource-label">Dân số:</span>
+                    <span id="population-current" class="resource-value">0</span>
+                    <span>/</span>
+                    <span id="population-max" class="resource-value">10</span>
                 </div>
             </div>
         </header>
 
-        <main class="game-main">
-            <!-- Màn hình chào mừng -->
-            <div id="welcome-screen" class="screen active">
-                <div class="welcome-content">
-                    <h2>Chào mừng đến với Papers, Please: Việt Nam</h2>
-                    <p>Bạn là cán bộ phụ trách xét duyệt tài liệu và quản lý căn cứ.</p>
-                    <p>Mỗi quyết định của bạn sẽ ảnh hưởng đến kết quả cuối cùng!</p>
-                    <button id="start-btn" class="btn btn-primary">Bắt đầu</button>
+        <!-- Main game area -->
+        <div class="game-container">
+            <!-- Left sidebar - Building menu -->
+            <aside class="sidebar left-sidebar">
+                <h3>🏗️ Xây dựng</h3>
+                <div class="building-menu" id="building-menu">
+                    <button class="build-btn" data-building="house" data-cost-food="50" data-cost-wood="30">
+                        <div class="btn-icon">🏠</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Nhà ở</div>
+                            <div class="btn-cost">🌾50 🪵30</div>
+                        </div>
+                    </button>
+                    <button class="build-btn" data-building="barracks" data-cost-food="100" data-cost-wood="80" data-cost-iron="20">
+                        <div class="btn-icon">🏛️</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Trường huấn luyện</div>
+                            <div class="btn-cost">🌾100 🪵80 ⚙️20</div>
+                        </div>
+                    </button>
+                    <button class="build-btn" data-building="workshop" data-cost-food="80" data-cost-wood="100" data-cost-iron="50">
+                        <div class="btn-icon">🔧</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Xưởng vũ khí</div>
+                            <div class="btn-cost">🌾80 🪵100 ⚙️50</div>
+                        </div>
+                    </button>
+                    <button class="build-btn" data-building="hospital" data-cost-food="60" data-cost-wood="70" data-cost-iron="10">
+                        <div class="btn-icon">🏥</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Bệnh viện</div>
+                            <div class="btn-cost">🌾60 🪵70 ⚙️10</div>
+                        </div>
+                    </button>
+                    <button class="build-btn" data-building="research" data-cost-food="150" data-cost-wood="120" data-cost-iron="80">
+                        <div class="btn-icon">🔬</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Trung tâm nghiên cứu</div>
+                            <div class="btn-cost">🌾150 🪵120 ⚙️80</div>
+                        </div>
+                    </button>
+                </div>
+
+                <h3>⚔️ Tuyển quân</h3>
+                <div class="unit-menu" id="unit-menu">
+                    <button class="train-btn" data-unit="worker" data-cost-food="50" data-building="house">
+                        <div class="btn-icon">👷</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Dân công</div>
+                            <div class="btn-cost">🌾50</div>
+                        </div>
+                    </button>
+                    <button class="train-btn" data-unit="guerrilla" data-cost-food="60" data-cost-wood="20" data-building="barracks">
+                        <div class="btn-icon">🔫</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Du kích</div>
+                            <div class="btn-cost">🌾60 🪵20</div>
+                        </div>
+                    </button>
+                    <button class="train-btn" data-unit="soldier" data-cost-food="100" data-cost-wood="40" data-cost-iron="30" data-building="barracks">
+                        <div class="btn-icon">🪖</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Bộ đội chủ lực</div>
+                            <div class="btn-cost">🌾100 🪵40 ⚙️30</div>
+                        </div>
+                    </button>
+                    <button class="train-btn" data-unit="artillery" data-cost-food="80" data-cost-wood="60" data-cost-iron="100" data-building="workshop">
+                        <div class="btn-icon">💣</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Pháo binh</div>
+                            <div class="btn-cost">🌾80 🪵60 ⚙️100</div>
+                        </div>
+                    </button>
+                </div>
+
+                <h3>🔬 Nghiên cứu</h3>
+                <div class="research-menu" id="research-menu">
+                    <button class="research-btn" data-research="weapons1" data-cost-food="200" data-cost-wood="150" data-cost-iron="100">
+                        <div class="btn-name">Vũ khí cải tiến</div>
+                        <div class="btn-cost">🌾200 🪵150 ⚙️100</div>
+                    </button>
+                    <button class="research-btn" data-research="armor1" data-cost-food="150" data-cost-wood="200" data-cost-iron="150">
+                        <div class="btn-name">Giáp bảo vệ</div>
+                        <div class="btn-cost">🌾150 🪵200 ⚙️150</div>
+                    </button>
+                    <button class="research-btn" data-research="heroes" data-cost-food="300" data-cost-wood="250" data-cost-iron="200">
+                        <div class="btn-name">Tuyển anh hùng</div>
+                        <div class="btn-cost">🌾300 🪵250 ⚙️200</div>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Center - Game canvas -->
+            <main class="game-main">
+                <canvas id="game-canvas" width="1200" height="800"></canvas>
+                <div class="game-info" id="game-info">
+                    <div class="info-panel" id="info-panel"></div>
+                </div>
+            </main>
+
+            <!-- Right sidebar - Selected unit info -->
+            <aside class="sidebar right-sidebar">
+                <h3>📊 Thông tin</h3>
+                <div class="info-display" id="info-display">
+                    <p>Chọn một đơn vị hoặc tòa nhà để xem thông tin</p>
+                </div>
+                
+                <h3>🎯 Anh hùng</h3>
+                <div class="hero-menu" id="hero-menu" style="display: none;">
+                    <button class="hero-btn" data-hero="vo-nguyen-giap" data-cost-food="500" data-cost-wood="300" data-cost-iron="200">
+                        <div class="btn-icon">⭐</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Võ Nguyên Giáp</div>
+                            <div class="btn-cost">🌾500 🪵300 ⚙️200</div>
+                        </div>
+                    </button>
+                    <button class="hero-btn" data-hero="hoang-van-thu" data-cost-food="400" data-cost-wood="250" data-cost-iron="150">
+                        <div class="btn-icon">⭐</div>
+                        <div class="btn-info">
+                            <div class="btn-name">Hoàng Văn Thụ</div>
+                            <div class="btn-cost">🌾400 🪵250 ⚙️150</div>
+                        </div>
+                    </button>
+                </div>
+
+                <h3>⚙️ Công nghệ</h3>
+                <div class="tech-display" id="tech-display">
+                    <div class="tech-item">Vũ khí thô sơ ✓</div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Bottom - Game controls -->
+        <footer class="game-footer">
+            <div class="controls">
+                <button id="pause-btn" class="control-btn">⏸️ Tạm dừng</button>
+                <button id="speed-btn" class="control-btn">⚡ Tốc độ: 1x</button>
+                <div class="game-stats">
+                    <span>Thời gian: <span id="game-time">00:00</span></span>
+                    <span>Đơn vị: <span id="unit-count">0</span></span>
+                    <span>Tòa nhà: <span id="building-count">0</span></span>
+                    <span>Đợt: <span id="wave-counter">0</span>/10</span>
+                    <span id="boss-indicator" style="display: none; color: #ef4444; font-weight: bold;">👹 BOSS!</span>
                 </div>
             </div>
+        </footer>
 
-            <!-- Màn hình xét duyệt tài liệu -->
-            <div id="document-screen" class="screen">
-                <div class="document-review">
-                    <h2>Xét duyệt tài liệu - Ngày <span id="current-day">1</span></h2>
-                    <div class="document-panel">
-                        <div class="document-info">
-                            <div class="info-row">
-                                <span class="label">Họ tên:</span>
-                                <span id="doc-name">-</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="label">CMND/CCCD:</span>
-                                <span id="doc-id">-</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="label">Nghề nghiệp:</span>
-                                <span id="doc-job">-</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="label">Lý do vào căn cứ:</span>
-                                <span id="doc-reason">-</span>
-                            </div>
-                            <div class="info-row">
-                                <span class="label">Giấy tờ:</span>
-                                <span id="doc-papers">-</span>
-                            </div>
-                            <div class="warning-signs" id="warning-signs"></div>
-                        </div>
-                        <div class="document-actions">
-                            <button id="approve-btn" class="btn btn-success">✅ Chấp nhận</button>
-                            <button id="reject-btn" class="btn btn-danger">❌ Từ chối</button>
-                            <button id="detain-btn" class="btn btn-warning">🚨 Bắt giữ</button>
-                        </div>
-                    </div>
-                    <div class="queue-info">
-                        <p>Còn lại: <span id="queue-count">0</span> người trong hàng</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Màn hình phân bổ tài nguyên -->
-            <div id="resource-screen" class="screen">
-                <div class="resource-allocation">
-                    <h2>Phân bổ tài nguyên</h2>
-                    <p>Tài nguyên hiện có: <strong id="available-resources">50</strong></p>
-                    <div class="resource-options">
-                        <div class="resource-option">
-                            <h3>🏥 Y tế</h3>
-                            <p>Chăm sóc sức khỏe cho nhân viên</p>
-                            <input type="range" id="health-resource" min="0" max="50" value="10">
-                            <span id="health-value">10</span>
-                        </div>
-                        <div class="resource-option">
-                            <h3>🛡️ An ninh</h3>
-                            <p>Tăng cường bảo vệ căn cứ</p>
-                            <input type="range" id="security-resource" min="0" max="50" value="10">
-                            <span id="security-value">10</span>
-                        </div>
-                        <div class="resource-option">
-                            <h3>🍞 Lương thực</h3>
-                            <p>Cung cấp thức ăn cho mọi người</p>
-                            <input type="range" id="food-resource" min="0" max="50" value="10">
-                            <span id="food-value">10</span>
-                        </div>
-                        <div class="resource-option">
-                            <h3>🔧 Cơ sở hạ tầng</h3>
-                            <p>Bảo trì và nâng cấp thiết bị</p>
-                            <input type="range" id="infra-resource" min="0" max="50" value="10">
-                            <span id="infra-value">10</span>
-                        </div>
-                    </div>
-                    <div class="resource-total">
-                        <p>Tổng đã phân bổ: <span id="total-allocated">40</span> / <span id="max-resources">50</span></p>
-                    </div>
-                    <button id="confirm-resources-btn" class="btn btn-primary">Xác nhận phân bổ</button>
-                </div>
-            </div>
-
-            <!-- Màn hình quyết định tình huống -->
-            <div id="decision-screen" class="screen">
-                <div class="decision-panel">
-                    <h2>Tình huống đặc biệt</h2>
-                    <div class="situation-text" id="situation-text"></div>
-                    <div class="decision-options" id="decision-options"></div>
-                </div>
-            </div>
-
-            <!-- Màn hình kết thúc -->
-            <div id="ending-screen" class="screen">
-                <div class="ending-content">
-                    <h2 id="ending-title">Kết thúc</h2>
-                    <div id="ending-description"></div>
-                    <div class="ending-stats">
-                        <h3>Thống kê cuối cùng:</h3>
-                        <ul id="ending-stats-list"></ul>
-                    </div>
-                    <button id="restart-btn" class="btn btn-primary">Chơi lại</button>
-                </div>
-            </div>
-        </main>
-
+        <!-- Notification -->
         <div class="notification" id="notification"></div>
     </div>
 
-    <script src="game.js"></script>
+    <script src="rts-game.js"></script>
 </body>
 </html>
 
